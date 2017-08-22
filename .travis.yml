@@ -1,15 +1,23 @@
 dist: trusty
 language: python
-python:
-- '3.5'
 before_install:
-- openssl aes-256-cbc -K $encrypted_c760f38e794c_key -iv $encrypted_c760f38e794c_iv -in fastmail.ini.enc -out fastmail.ini -d
+- openssl aes-256-cbc -K $encrypted_c760f38e794c_key -iv $encrypted_c760f38e794c_iv
+  -in gmail.ini.enc -out gmail.ini -d
+- openssl aes-256-cbc -K $encrypted_c760f38e794c_key -iv $encrypted_c760f38e794c_iv
+  -in fastmail.ini.enc -out fastmail.ini -d
+python:
+- '2.7'
+- '3.5'
+env:
+  - SVC=gmail
+  - SVC=fastmail
 install:
 - git clone https://github.com/mjs/imapclient.git
 - cd imapclient
 - git checkout 1.x
 - python setup.py install
-script: python livetest.py ../fastmail.ini
+script:
+  - python livetest.py ../$SVC.ini
 notifications:
   email:
     recipients:
