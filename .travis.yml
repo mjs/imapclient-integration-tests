@@ -2,18 +2,17 @@ dist: trusty
 language: python
 python:
 - '3.5'
-env:
-  global:
-  - secure: AryDxGM0RVjcnklzi0uNRusUsV6LwYxYrsFwiaegCT1rSh54VoGsUDXFaxvCP2Bi1oyZy1c7sXnr0CWw2/3hRnrYTAQizRlLZwDD0ctP17SFQGTvJyd0bByy6nrnS324H9A3FqHa3xJPcp7KWb/710rNmm+b1F7wXw9V69bGOe2qlbglf990t8LSKxMRIt//X8+swnyhtVHefezxxvUFePieIvCHnkwXAU1gO7ai2KfjoiqP/oWgxMaRFLLir5Y4wzFxxjLz+HzkJQbdRPP6ZDpt8KchpnHK5L4bYuzeQZ3zoy2iX/wsBb+h1WXx47ejWU0RRnwqC9pAru1vBDFyrfmHtT0PbFf/9sC7InMv/dPKN5YmxyaDVdqrOb3hbYyYrAum9ooKENt9+LYZxCVNSvJ5j5JhMWcdoJnite8Qh0ee0uzbehhMnZpcKCtNhgjNvNLA+xAVorPJARUJlI+Fs8zd04ng9sJV8kcckDch3NTI83xvWSUJOxtR2aDhVKlF1d6QOmQ6kOU4eBTdXeafYNOdV7+fmTvo9g8Igl+1FI2hZREE/Un5HDGYbEYDAQfydIulICSubUImBSw5diU7Q+zWjaW/G5GJC+bvpazTKQzUBoo1lOVWjzNbVKuobdFwAmEHxYZpiPOcFvHyUCLtLTeAQO8D39arcSr6832/iI0=
+before_install:
+- openssl aes-256-cbc -K $encrypted_c760f38e794c_key -iv $encrypted_c760f38e794c_iv -in fastmail.ini.enc -out fastmail.ini -d
 install:
 - git clone https://github.com/mjs/imapclient.git
 - cd imapclient
 - git checkout 1.x
 - python setup.py install
-script: python livetest.py ../gmail.ini
+script: python livetest.py ../fastmail.ini
 notifications:
   email:
     recipients:
-      - imapclient-notifications@freshfoo.com
+    - imapclient-notifications@freshfoo.com
     on_success: never
     on_failure: never
